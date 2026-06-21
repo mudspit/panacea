@@ -57,6 +57,11 @@ select {
   border-radius: var(--radius);
   border: 2px solid var(--primary);
   background: white;
+  color: var(--text);
+}
+
+.card h2 {
+  color: var(--primary-dark);
 }
 
 button {
