@@ -1,7 +1,53 @@
 import { createWorker } from "tesseract.js";
 
-// ---------- OCR (Tesseract.js — free, runs in-browser, no API key) ----------
-export async function runOCR(file, onProgress) {
+// ---------- Image preprocessing: sharpen contrast & upscale so handwriting reads cleaner ----------
+async function preprocessImage(file) {
+  if (!file.type.startsWith("image/")) return file;
+  const bitmap = await createImageBitmap(file);
+  const scale = bitmap.width < 1200 ? 1600 / bitmap.width : 1;
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const d = imgData.data;
+  // grayscale + contrast stretch — flattens ink-bleed/shadows that confuse OCR on handwriting
+  const contrast = 1.4;
+  for (let i = 0; i < d.length; i += 4) {
+    const gray = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    const adjusted = Math.min(255, Math.max(0, (gray - 128) * contrast + 128));
+    d[i] = d[i + 1] = d[i + 2] = adjusted;
+  }
+  ctx.putImageData(imgData, 0, 0);
+
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => resolve(new File([blob], file.name, { type: "image/png" })), "image/png");
+  });
+}
+
+// ---------- OCR.space (free, handwriting-tuned "OCR Engine 2") ----------
+// Get a free key in seconds at https://ocr.space/ocrapi (no card required) and paste it in the app.
+// Without a key we fall back to the shared demo key, which has a very low shared rate limit.
+const OCR_SPACE_DEMO_KEY = "helloworld";
+
+async function runOCRSpace(file, apiKey) {
+  const form = new FormData();
+  form.append("file", file);
+  form.append("apikey", apiKey || OCR_SPACE_DEMO_KEY);
+  form.append("OCREngine", "2"); // engine 2 handles messy/handwritten text better than the default
+  form.append("scale", "true");
+  form.append("detectOrientation", "true");
+
+  const res = await fetch("https://api.ocr.space/parse/image", { method: "POST", body: form });
+  const data = await res.json();
+  if (data.IsErroredOnProcessing) throw new Error(data.ErrorMessage?.[0] || "OCR.space failed");
+  return (data.ParsedResults || []).map((r) => r.ParsedText).join("\n").trim();
+}
+
+// ---------- Tesseract.js (free, runs in-browser, no API key — fallback) ----------
+async function runTesseract(file, onProgress) {
   const worker = await createWorker("eng", 1, {
     logger: (m) => {
       if (m.status === "recognizing text" && onProgress) {
@@ -15,6 +61,31 @@ export async function runOCR(file, onProgress) {
   } finally {
     await worker.terminate();
   }
+}
+
+// ---------- Combined OCR: preprocess, try handwriting-tuned engine first, fall back, keep the longer result ----------
+export async function runOCR(file, onProgress, apiKey) {
+  const cleaned = await preprocessImage(file);
+
+  let spaceText = "";
+  try {
+    onProgress?.(10);
+    spaceText = await runOCRSpace(cleaned, apiKey);
+    onProgress?.(60);
+  } catch {
+    spaceText = "";
+  }
+
+  let tesseractText = "";
+  try {
+    tesseractText = await runTesseract(cleaned, (p) => onProgress?.(60 + Math.round(p * 0.4)));
+  } catch {
+    tesseractText = "";
+  }
+
+  onProgress?.(100);
+  // Handwriting-tuned engine tends to win on doctor scrawl; pick whichever produced more readable content.
+  return spaceText.length >= tesseractText.length ? spaceText || tesseractText : tesseractText || spaceText;
 }
 
 // ---------- Medicine line parsing (heuristic, no AI required) ----------

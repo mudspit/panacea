@@ -46,6 +46,9 @@ export const STRINGS = {
     takeMedicineTitle: "Time to take your medicine",
     takeMedicineBody: "It's time to take",
     editText: "Edit text",
+    ocrKeyLabel: "Optional: improve handwriting reading",
+    ocrKeyPlaceholder: "Paste your free OCR.space key (optional)",
+    ocrKeyHint: "Doctor's handwriting can be hard to read. A free key from",
   },
   es: {
     appTitle: "Panacea",
@@ -84,6 +87,9 @@ export const STRINGS = {
     takeMedicineTitle: "Hora de tomar su medicamento",
     takeMedicineBody: "Es hora de tomar",
     editText: "Editar texto",
+    ocrKeyLabel: "Opcional: mejore la lectura de la letra manuscrita",
+    ocrKeyPlaceholder: "Pegue su clave gratuita de OCR.space (opcional)",
+    ocrKeyHint: "La letra del médico puede ser difícil de leer. Una clave gratuita en",
   },
   tl: {
     appTitle: "Panacea",
@@ -122,6 +128,9 @@ export const STRINGS = {
     takeMedicineTitle: "Oras na para uminom ng gamot",
     takeMedicineBody: "Oras na para inumin ang",
     editText: "I-edit ang teksto",
+    ocrKeyLabel: "Opsyonal: pahusayin ang pagbasa ng sulat-kamay",
+    ocrKeyPlaceholder: "I-paste ang libreng OCR.space key mo (opsyonal)",
+    ocrKeyHint: "Mahirap basahin ang sulat-kamay ng doktor. Libreng key sa",
   },
   zh: {
     appTitle: "Panacea",
@@ -160,6 +169,9 @@ export const STRINGS = {
     takeMedicineTitle: "该服药了",
     takeMedicineBody: "现在该服用",
     editText: "编辑文字",
+    ocrKeyLabel: "可选：提升手写字识别效果",
+    ocrKeyPlaceholder: "粘贴您的免费 OCR.space 密钥（可选）",
+    ocrKeyHint: "医生的手写字可能很难辨认。免费密钥申请地址：",
   },
   hi: {
     appTitle: "Panacea",
@@ -198,6 +210,9 @@ export const STRINGS = {
     takeMedicineTitle: "दवा लेने का समय",
     takeMedicineBody: "अब लेने का समय है",
     editText: "पाठ संपादित करें",
+    ocrKeyLabel: "वैकल्पिक: डॉक्टर की लिखावट को बेहतर पढ़ें",
+    ocrKeyPlaceholder: "अपनी मुफ्त OCR.space कुंजी पेस्ट करें (वैकल्पिक)",
+    ocrKeyHint: "डॉक्टर की लिखावट पढ़ना कठिन हो सकता है। मुफ्त कुंजी यहाँ से लें:",
   },
 };
 

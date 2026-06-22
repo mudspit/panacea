@@ -222,6 +222,39 @@ textarea.review-text {
   text-align: center;
 }
 
+.ocr-key-box {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: #f6f3ea;
+  border-radius: var(--radius);
+}
+
+.ocr-key-box label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+}
+
+.ocr-key-box input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  color: var(--text);
+}
+
+.ocr-key-hint {
+  font-size: 14px;
+  color: #777;
+  margin: 8px 0 0;
+}
+
+.ocr-key-hint a {
+  color: var(--primary-dark);
+}
+
 .app-footer {
   margin-top: 24px;
   text-align: center;

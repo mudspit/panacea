@@ -22,6 +22,12 @@ function App() {
   const [ocrProgress, setOcrProgress] = useState(0);
   const [isReading, setIsReading] = useState(false);
   const [rawText, setRawText] = useState("");
+  const [ocrApiKey, setOcrApiKey] = useState(() => localStorage.getItem("ocrSpaceApiKey") || "");
+
+  function handleApiKeyChange(value) {
+    setOcrApiKey(value);
+    localStorage.setItem("ocrSpaceApiKey", value);
+  }
 
   const [medicines, setMedicines] = useState([]);
   const [isLookingUp, setIsLookingUp] = useState(false);
@@ -48,7 +54,7 @@ function App() {
     setIsReading(true);
     setOcrProgress(0);
     try {
-      const text = await runOCR(file, setOcrProgress);
+      const text = await runOCR(file, setOcrProgress, ocrApiKey);
       setRawText(text);
       setStep(STEPS.REVIEW);
     } catch (err) {
@@ -167,6 +173,22 @@ function App() {
               </div>
             </div>
           )}
+          <div className="ocr-key-box">
+            <label htmlFor="ocr-key-input">{T("ocrKeyLabel")}</label>
+            <input
+              id="ocr-key-input"
+              type="text"
+              placeholder={T("ocrKeyPlaceholder")}
+              value={ocrApiKey}
+              onChange={(e) => handleApiKeyChange(e.target.value)}
+            />
+            <p className="ocr-key-hint">
+              {T("ocrKeyHint")}{" "}
+              <a href="https://ocr.space/ocrapi" target="_blank" rel="noopener noreferrer">
+                ocr.space/ocrapi
+              </a>
+            </p>
+          </div>
         </div>
       )}
 
