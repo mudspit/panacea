@@ -49,6 +49,7 @@ export const STRINGS = {
     ocrKeyLabel: "Optional: improve handwriting reading",
     ocrKeyPlaceholder: "Paste your free OCR.space key (optional)",
     ocrKeyHint: "Doctor's handwriting can be hard to read. A free key from",
+    ocrKeySaved: "Saved",
   },
   es: {
     appTitle: "Panacea",
@@ -90,6 +91,7 @@ export const STRINGS = {
     ocrKeyLabel: "Opcional: mejore la lectura de la letra manuscrita",
     ocrKeyPlaceholder: "Pegue su clave gratuita de OCR.space (opcional)",
     ocrKeyHint: "La letra del médico puede ser difícil de leer. Una clave gratuita en",
+    ocrKeySaved: "Guardada",
   },
   tl: {
     appTitle: "Panacea",
@@ -131,6 +133,7 @@ export const STRINGS = {
     ocrKeyLabel: "Opsyonal: pahusayin ang pagbasa ng sulat-kamay",
     ocrKeyPlaceholder: "I-paste ang libreng OCR.space key mo (opsyonal)",
     ocrKeyHint: "Mahirap basahin ang sulat-kamay ng doktor. Libreng key sa",
+    ocrKeySaved: "Nai-save",
   },
   zh: {
     appTitle: "Panacea",
@@ -172,6 +175,7 @@ export const STRINGS = {
     ocrKeyLabel: "可选：提升手写字识别效果",
     ocrKeyPlaceholder: "粘贴您的免费 OCR.space 密钥（可选）",
     ocrKeyHint: "医生的手写字可能很难辨认。免费密钥申请地址：",
+    ocrKeySaved: "已保存",
   },
   hi: {
     appTitle: "Panacea",
@@ -213,6 +217,7 @@ export const STRINGS = {
     ocrKeyLabel: "वैकल्पिक: डॉक्टर की लिखावट को बेहतर पढ़ें",
     ocrKeyPlaceholder: "अपनी मुफ्त OCR.space कुंजी पेस्ट करें (वैकल्पिक)",
     ocrKeyHint: "डॉक्टर की लिखावट पढ़ना कठिन हो सकता है। मुफ्त कुंजी यहाँ से लें:",
+    ocrKeySaved: "सहेजा गया",
   },
 };
 

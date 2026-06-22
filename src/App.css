@@ -237,12 +237,27 @@ textarea.review-text {
   margin-bottom: 8px;
 }
 
+.ocr-key-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .ocr-key-box input[type="text"] {
-  width: 100%;
+  flex: 1;
+  min-width: 200px;
   padding: 10px 12px;
   border-radius: 10px;
   border: 2px solid #ccc;
   color: var(--text);
+}
+
+.ocr-key-saved {
+  color: var(--primary-dark);
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 .ocr-key-hint {
